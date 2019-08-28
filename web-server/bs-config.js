@@ -17,6 +17,8 @@ const sass = require('node-sass')
 const Twig = require('twig')
 const fs = require('fs')
 
+Twig.cache(false)
+
 module.exports = {
     "ui": {
         "port": 3001
@@ -35,7 +37,7 @@ module.exports = {
         {
             match: ['src/index.twig'],
             fn: (event, file) => {
-                const data = JSON.parse(fs.readFileSync('src/data.json', {encoding: 'utf8'}))
+                const data = JSON.parse(fs.readFileSync('src/data.json').toString())
                 Twig.renderFile('src/index.twig', data, (err, html) => {
                     if (err) {
                         console.log(err)
@@ -90,7 +92,7 @@ module.exports = {
     "logFileChanges": true,
     "logSnippet": true,
     "rewriteRules": [],
-    "open": "local",
+    "open": false,
     "browser": "default",
     "cors": false,
     "xip": false,
